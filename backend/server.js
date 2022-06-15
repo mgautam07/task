@@ -13,7 +13,7 @@ app.use("/contact", cont);
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.render("navbar", { data: [{}, {}] });
 });
 
 // app.create("/create", (req, res) => {});

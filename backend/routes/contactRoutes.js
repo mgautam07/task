@@ -2,10 +2,6 @@ import { Router } from "express";
 import { Contacts } from "../Contact.js";
 const cont = Router();
 
-// cont.post()
-// cont.update()
-// cont.delete()
-
 cont.post("/create", async (req, res) => {
   const newContact = new Contacts({
     name: req.body.name,
@@ -20,7 +16,8 @@ cont.post("/create", async (req, res) => {
 
 cont.get("/showall", async (req, res) => {
   const all_contacts = await Contacts.find({});
-  res.send(all_contacts);
+  // res.send(all_contacts);
+  res.render("home", { data: all_contacts });
 });
 
 cont.delete("/delete", async (req, res) => {
