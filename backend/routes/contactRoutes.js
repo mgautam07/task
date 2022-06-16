@@ -1,16 +1,34 @@
 import { Router } from "express";
 import { Contacts } from "../Contact.js";
-const cont = Router();
+import multer from "multer";
+import fs from "fs";
+import path from "path";
 
-cont.post("/create", async (req, res) => {
+const cont = Router();
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now());
+  },
+});
+const upload = multer({ storage: storage });
+
+cont.post("/create", upload.single("image"), async (req, res, next) => {
+  console.log(req.body);
   const newContact = new Contacts({
-    name: req.body.name,
+    name: req.body.iname,
     phone_number: req.body.phone_number,
     alt_phone_number: req.body.alt_phone_number,
     email: req.body.email,
-    image: req.body.image,
+    // image: {
+    //   data: fs.readFileSync(path.join("./uploads/" + req.file.filename)),
+    //   contentType: "image/png",
+    // },
   });
   const result = await newContact.save();
+  console.log(result);
   res.send("new contact added");
 });
 
@@ -49,6 +67,14 @@ cont.post("/update", async (req, res) => {
   );
   console.log(result);
   res.send("contact updated");
+});
+
+cont.get("/search", async (req, res) => {
+  console.log(`/.*${req.body.query}.*/`);
+  const name_results = await Contacts.find({
+    name: { $regex: req.body.query },
+  });
+  res.render("search", { data: name_results });
 });
 
 export default cont;

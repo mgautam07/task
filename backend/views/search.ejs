@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-200">
+  <nav class="flex justify-between z-10">
+    <div class="m-2 p-2 links text-xl cursor-pointer">
+      </a href="/">Contacts</a>
+    </div>
+  </nav>
+  <div>
+    <ul class="mx-14">
+      <% for (let i = 0; i < data.length; i++) { %>
+      <li class="my-3 p-4 border-2 w-64 border-sky-400">
+        <span class="font-bold">
+          <%= data[i].name %>
+        </span>
+        <br>
+        <%= data[i].phone_number %>
+        <br>
+        <%= data[i].alt_phone_number %>
+        <br>
+        <%= data[i].email %>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</body>
+</html>
