@@ -14,6 +14,8 @@
 3. Make a folder with name **uploads**
 4. Run **node server.js** to start the node server
 
+# Make sure to add a mongodb uri in .env file
+
 ```
     npm install
     cd task
