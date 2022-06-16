@@ -12,42 +12,10 @@
     <div class="m-2 p-2 links text-xl cursor-pointer">
       </a href="/">Contacts</a>
     </div>
-    <!-- <div class="">
-      <ul class="flex">
-        <li class="m-2 p-2 links text-xl">
-          </a href="/contact/create">Create<//a>
-        </li>
-        <li class="m-2 p-2 links text-xl">
-          </a href="/contact/showall">Show all<//a>
-        </li>
-        <li class="m-2 p-2 links text-xl">
-          </a href="/contact/update">Update<//a>
-        </li>
-        <li class="m-2 p-2 links text-xl">
-          </a href="/contact/delete">Delete<//a>
-        </li>
-      </ul>
-    </div> -->
   </nav>
-  <div>
-    <ul class="mx-14">
-      <% for (let i = 0; i < data.length; i++) { %>
-      <li class="my-3 p-4 border-2 w-64 border-sky-400">
-        <span class="font-bold">
-          <%= data[i].name %>
-        </span>
-        <br>
-        <%= data[i].phone_number %>
-        <br>
-        <%= data[i].alt_phone_number %>
-        <br>
-        <%= data[i].email %>
-      </li>
-      <% } %>
-    </ul>
-  </div>
+  <span class="text-2xl mx-14 font-bold">Create contact</span>
   <form action="/contact/create" method="post" class="mx-14">
-    <label for="name">First name:</label><br>
+    <label for="name">Name:</label><br>
     <input type="text" name="iname"><br>
     <label for="phone_number">Phone number:</label><br>
     <input type="number" name="alt_phone_number"><br>
@@ -55,7 +23,8 @@
     <input type="number" name="phone_number"><br>
     <label for="email">Email:</label><br>
     <input type="email" name="email"><br><br>
-    <button type="submit">submit</button>
-  </form> 
+    <input type="file" name="image" id="image"><br>
+    <button type="submit" class="border-2 border-sky-400 m-1 p-1">submit</button>
+  </form>
 </body>
 </html>

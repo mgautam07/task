@@ -7,25 +7,25 @@ import path from "path";
 const cont = Router();
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads");
+    cb(null, "./uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
   },
 });
 const upload = multer({ storage: storage });
 
 cont.post("/create", upload.single("image"), async (req, res, next) => {
-  console.log(req.body);
+  const img_name = req.file ? req.file.filename : "";
   const newContact = new Contacts({
     name: req.body.iname,
     phone_number: req.body.phone_number,
     alt_phone_number: req.body.alt_phone_number,
     email: req.body.email,
-    // image: {
-    //   data: fs.readFileSync(path.join("./uploads/" + req.file.filename)),
-    //   contentType: "image/png",
-    // },
+    image: img_name,
   });
   const result = await newContact.save();
   console.log(result);
@@ -34,8 +34,7 @@ cont.post("/create", upload.single("image"), async (req, res, next) => {
 
 cont.get("/showall", async (req, res) => {
   const all_contacts = await Contacts.find({});
-  // res.send(all_contacts);
-  res.render("home", { data: all_contacts });
+  res.send(all_contacts);
 });
 
 cont.delete("/delete", async (req, res) => {
@@ -66,15 +65,14 @@ cont.post("/update", async (req, res) => {
     }
   );
   console.log(result);
-  res.send("contact updated");
+  result ? res.send("contact updated") : res.send("contact not updated");
 });
 
-cont.get("/search", async (req, res) => {
-  console.log(`/.*${req.body.query}.*/`);
+cont.post("/search", async (req, res) => {
   const name_results = await Contacts.find({
     name: { $regex: req.body.query },
   });
-  res.render("search", { data: name_results });
+  res.send(name_results);
 });
 
 export default cont;

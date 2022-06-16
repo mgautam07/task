@@ -17,10 +17,10 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // image: {
-  //   data: Buffer,
-  //   contentType: String,
-  // },
+  image: {
+    data: Buffer,
+    type: String,
+  },
 });
 
 const Contacts = mongoose.model("Contacts", contactSchema);
