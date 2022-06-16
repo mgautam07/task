@@ -44,7 +44,7 @@ cont.delete("/delete", async (req, res) => {
     : res.send("No contact deleted");
 });
 
-cont.post("/update", async (req, res) => {
+cont.put("/update", async (req, res) => {
   const new_name = req.body.name;
   const new_phone_number = req.body.phone_number;
   const new_alt_phone_number = req.body.alt_phone_number;
@@ -67,7 +67,7 @@ cont.post("/update", async (req, res) => {
   result ? res.send("Contact updated") : res.send("Contact not updated");
 });
 
-cont.post("/search", async (req, res) => {
+cont.get("/search", async (req, res) => {
   const name_results = await Contacts.find({
     name: { $regex: req.body.query },
   });
