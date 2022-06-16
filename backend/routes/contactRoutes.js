@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { Contacts } from "../Contact.js";
 import multer from "multer";
-import fs from "fs";
 import path from "path";
 
 const cont = Router();
@@ -38,11 +37,11 @@ cont.get("/showall", async (req, res) => {
 });
 
 cont.delete("/delete", async (req, res) => {
-  const contactfound = await Contacts.findOne({ name: req.body.name });
-  console.log(contactfound);
-  const result = await Contacts.deleteOne({ _id: contactfound._id });
+  const result = await Contacts.deleteOne({ name: req.body.name });
   console.log(result);
-  res.send("contact deleted");
+  result.deletedCount !== 0
+    ? res.send("contact deleted")
+    : res.send("No contact deleted");
 });
 
 cont.post("/update", async (req, res) => {
@@ -65,14 +64,14 @@ cont.post("/update", async (req, res) => {
     }
   );
   console.log(result);
-  result ? res.send("contact updated") : res.send("contact not updated");
+  result ? res.send("Contact updated") : res.send("Contact not updated");
 });
 
 cont.post("/search", async (req, res) => {
   const name_results = await Contacts.find({
     name: { $regex: req.body.query },
   });
-  res.send(name_results);
+  name_results ? res.send(name_results) : res.send("No search results");
 });
 
 export default cont;
