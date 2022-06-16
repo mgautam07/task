@@ -16,6 +16,7 @@
 
 ```
     npm install
+    cd task
     mkdir uploads
     node server.js
 ```
