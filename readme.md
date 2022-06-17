@@ -17,8 +17,9 @@
 4. Run **node server.js** to start the node server
 
 ```
-    npm install
+    git clone https://github.com/mgautam07/task.git
     cd task
+    npm install
     mkdir uploads
     node server.js
 ```
